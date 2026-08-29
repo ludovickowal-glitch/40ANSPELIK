@@ -3,94 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tournoi des 4 Équipes</title>
+  <title>Tournoi des 4 Équipes — Suivi & Score</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background-color: #f1f5f9; color: #1e293b; }
-    .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-    h1, h2 { text-align: center; color: #0f172a; }
-    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-    th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: center; }
-    th { background-color: #2563eb; color: white; }
-    .card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-    .form-group { margin-bottom: 12px; display: flex; flex-direction: column; gap: 5px; }
-    select, input, button { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px; }
-    button { background-color: #2563eb; color: white; border: none; font-weight: bold; cursor: pointer; }
-    .team-badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-weight: bold; color: white; }
-    .vodka { background-color: #2563eb; }
-    .ginto { background-color: #16a34a; }
-    .teq { background-color: #ea580c; }
-    .punch { background-color: #dc2626; }
+    :root {
+      --bg-cream: #fbf7ee;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --border-color: #2b2b2b;
+      --vodka-blue: #2563eb;
+      --ginto-green: #16a34a;
+      --teq-orange: #ea580c;
+      --punch-red: #dc2626;
+      --gold: #f59e0b;
+      --silver: #94a3b8;
+      --bronze: #d97706;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg-cream); color: var(--text-main); font-family: 'Quicksand', sans-serif; padding: 20px 12px; max-width: 950px; margin: 0 auto; }
+    h1, h2, .podium-name, button, th, .donkey-title { font-family: 'Fredoka', sans-serif; }
+    header { text-align: center; margin-bottom: 24px; border-bottom: 3px dashed var(--border-color); padding-bottom: 16px; }
+    h1 { font-size: 2rem; text-transform: uppercase; color: #1e3a8a; letter-spacing: 1px; }
+    .subtitle { display: inline-block; background: var(--teq-orange); color: white; font-weight: bold; padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; margin-top: 6px; }
+    
+    .podium-wrapper { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 24px; }
+    .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 8px; height: 190px; flex: 1; }
+    .podium-step { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 32%; border-radius: 12px 12px 0 0; color: white; font-weight: bold; padding-bottom: 10px; border: 2px solid var(--border-color); box-shadow: 3px 3px 0px var(--border-color); }
+    .podium-step.first { height: 100%; background: var(--gold); order: 2; }
+    .podium-step.second { height: 75%; background: var(--silver); order: 1; }
+    .podium-step.third { height: 55%; background: var(--bronze); order: 3; }
+    .podium-name { font-size: 1rem; text-align: center; line-height: 1.1; margin-bottom: 2px; }
+    .podium-score { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 10px; }
+    .podium-rank { font-size: 1.5rem; opacity: 0.6; margin-bottom: 4px; }
+
+    .donkey-zone { width: 130px; background: #f1f5f9; border: 2px dashed #94a3b8; border-radius: 12px; padding: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 2px 2px 0px var(--border-color); }
+    .donkey-hat { font-size: 2rem; line-height: 1; margin-bottom: 4px; }
+    .donkey-title { font-size: 0.75rem; color: #64748b; text-transform: uppercase; margin-bottom: 6px; }
+    .donkey-name { font-size: 0.95rem; font-weight: bold; font-family: 'Fredoka', sans-serif; }
+    .donkey-score { font-size: 0.8rem; color: #475569; margin-top: 2px; }
+
+    @media (max-width: 600px) { .podium-wrapper { flex-direction: column; align-items: stretch; } .donkey-zone { width: 100%; } }
+
+    .main-grid { display: grid; grid-template-columns: 1.1fr 1.3fr; gap: 20px; }
+    @media (max-width: 720px) { .main-grid { grid-template-columns: 1fr; } }
+
+    .card { background: var(--card-bg); padding: 18px; border-radius: 16px; border: 2px solid var(--border-color); box-shadow: 4px 4px 0px var(--border-color); margin-bottom: 20px; }
+    .card h2 { font-size: 1.2rem; margin-bottom: 12px; color: var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+
+    .form-group { margin-bottom: 10px; }
+    label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
+    select, input { width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; font-family: 'Quicksand', sans-serif; font-weight: 700; background: #fafafa; }
+
+    .btn-group { display: flex; gap: 8px; margin-top: 10px; }
+    button { flex: 1; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; box-shadow: 2px 2px 0px var(--border-color); }
+    .btn-add { background: #22c55e; color: white; }
+    .btn-remove { background: #ef4444; color: white; }
+    .btn-lock { background: #e2e8f0; color: #334155; font-size: 0.8rem; padding: 4px 8px; width: auto; }
+
+    .epreuve-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #ccc; }
+    .epreuve-time { font-family: 'Fredoka', sans-serif; background: #e2e8f0; padding: 2px 6px; border-radius: 6px; font-size: 0.85rem; }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px 4px; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
+    th { font-size: 0.75rem; color: #64748b; text-transform: uppercase; }
+    td.score { font-weight: bold; text-align: center; font-size: 0.95rem; font-family: 'Fredoka', sans-serif; }
+    td.total { font-size: 1.1rem; color: #1e3a8a; }
+    td.rank { width: 25px; text-align: center; font-weight: bold; font-family: 'Fredoka', sans-serif; }
+
+    .team-tag { display: inline-block; padding: 2px 6px; border-radius: 6px; color: white; font-weight: bold; font-size: 0.8rem; border: 1px solid var(--border-color); }
+    .tag-vodka { background: var(--vodka-blue); }
+    .tag-ginto { background: var(--ginto-green); }
+    .tag-teq { background: var(--teq-orange); }
+    .tag-punch { background: var(--punch-red); }
+
+    .locked-panel { opacity: 0.4; pointer-events: none; filter: grayscale(1); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🏆 Tournoi des 4 Équipes</h1>
 
-    <div class="card">
-      <h2>📝 Saisir un résultat</h2>
-      <div class="form-group">
-        <label>Épreuve :</label>
-        <select id="epreuve">
-          <option>🎯 Fléchettes</option>
-          <option>🌽 Cornhole</option>
-          <option>🪵 Palet Breton</option>
-          <option>🏓 Ping-Pong</option>
-        </select>
+  <header>
+    <h1>🎯 Planning & Épreuves Sportives</h1>
+    <div class="subtitle">ÉDITION SPÉCIALE - SUIVI EN DIRECT</div>
+  </header>
+
+  <div class="podium-wrapper">
+    <div class="podium-container">
+      <div class="podium-step second">
+        <div class="podium-rank">2</div>
+        <div class="podium-name" id="name-2">-</div>
+        <div class="podium-score" id="score-2">0 pts</div>
       </div>
-      <div class="form-group">
-        <label>Équipe :</label>
-        <select id="equipe">
-          <option value="Vodka Get">Vodka Get</option>
-          <option value="Ginto">Ginto</option>
-          <option value="Teq'Paf">Teq'Paf</option>
-          <option value="Ti'Punch">Ti'Punch</option>
-        </select>
+      <div class="podium-step first">
+        <div class="podium-rank">1</div>
+        <div class="podium-name" id="name-1">-</div>
+        <div class="podium-score" id="score-1">0 pts</div>
       </div>
-      <div class="form-group">
-        <label>Points :</label>
-        <input type="number" id="points" min="0" value="0">
+      <div class="podium-step third">
+        <div class="podium-rank">3</div>
+        <div class="podium-name" id="name-3">-</div>
+        <div class="podium-score" id="score-3">0 pts</div>
       </div>
-      <button onclick="ajouterPoints()">Valider les points</button>
     </div>
 
-    <h2>📊 Classement Général</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Rang</th>
-          <th>Équipe</th>
-          <th>Points</th>
-        </tr>
-      </thead>
-      <tbody id="tableau-classement"></tbody>
-    </table>
+    <div class="donkey-zone">
+      <div class="donkey-hat">🫏🧹</div>
+      <div class="donkey-title">4ᵉ (Bonnet d'âne)</div>
+      <div class="donkey-name" id="name-4">-</div>
+      <div class="donkey-score" id="score-4">0 pts</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div>
+      <div class="card">
+        <h2>
+          <span>⚡ Saisie des Points</span>
+          <button id="btn-toggle-admin" class="btn-lock">🔒 Déverrouiller</button>
+        </h2>
+        
+        <div id="admin-panel" class="locked-panel">
+          <form id="score-form">
+            <div class="form-group">
+              <label for="team-select">Équipe</label>
+              <select id="team-select"></select>
+            </div>
+            <div class="form-group">
+              <label for="epreuve-select">Épreuve</label>
+              <select id="epreuve-select">
+                <option value="flechettes">🎯 Fléchettes</option>
+                <option value="cornhole">🌾 Cornhole</option>
+                <option value="palet">🪵 Palet Breton</option>
+                <option value="pingpong">🏓 Ping-Pong</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="points-input">Points</label>
+              <input type="number" id="points-input" min="1" placeholder="Ex: 4">
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn-add" id="btn-add">+ Ajouter</button>
+              <button type="button" class="btn-remove" id="btn-remove">- Enlever</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📅 Planning des Épreuves</h2>
+        <div class="epreuve-item"><span>🎯 1. Fléchette</span><span class="epreuve-time">16h00</span></div>
+        <div class="epreuve-item"><span>🌾 2. Corn Hall</span><span class="epreuve-time">17h00</span></div>
+        <div class="epreuve-item"><span>🪵 3. Palet Breton</span><span class="epreuve-time">18h00</span></div>
+        <div class="epreuve-item"><span>🏓 4. Finale : Ping Pong</span><span class="epreuve-time">19h00</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏆 Classement Général (Détail)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Équipe</th>
+            <th style="text-align:center;">🎯</th>
+            <th style="text-align:center;">🌾</th>
+            <th style="text-align:center;">🪵</th>
+            <th style="text-align:center;">🏓</th>
+            <th style="text-align:center;">Total</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-body"></tbody>
+      </table>
+    </div>
   </div>
 
   <script>
-    const scores = { "Vodka Get": 0, "Ginto": 0, "Teq'Paf": 0, "Ti'Punch": 0 };
-    const classes = { "Vodka Get": "vodka", "Ginto": "ginto", "Teq'Paf": "teq", "Ti'Punch": "punch" };
+    // MOT DE PASSE POUR S'AUTHENTIFIER EN TANT QU'ORGANISATEUR
+    const ADMIN_PASSWORD = "1234";
+    let isAdmin = false;
 
-    function updateTable() {
-      const tbody = document.getElementById("tableau-classement");
-      tbody.innerHTML = "";
-      const sorted = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-      sorted.forEach((team, index) => {
-        tbody.innerHTML += `<tr>
-          <td><strong>${index + 1}</strong></td>
-          <td><span class="team-badge ${classes[team]}">${team}</span></td>
-          <td><strong>${scores[team]} pts</strong></td>
-        </tr>`;
+    let teams = [
+      { id: "vodka", name: "Vodka Get", tagClass: "tag-vodka", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } },
+      { id: "ginto", name: "Ginto", tagClass: "tag-ginto", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } },
+      { id: "teq", name: "Teq'Paf", tagClass: "tag-teq", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } },
+      { id: "punch", name: "Ti'Punch", tagClass: "tag-punch", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } }
+    ];
+
+    const teamSelect = document.getElementById('team-select');
+    const epreuveSelect = document.getElementById('epreuve-select');
+    const leaderboardBody = document.getElementById('leaderboard-body');
+    const pointsInput = document.getElementById('points-input');
+    const adminPanel = document.getElementById('admin-panel');
+    const btnToggleAdmin = document.getElementById('btn-toggle-admin');
+
+    function getTotalScore(team) { return Object.values(team.scores).reduce((a, b) => a + b, 0); }
+
+    function updateDisplay() {
+      teams.sort((a, b) => getTotalScore(b) - getTotalScore(a));
+
+      for (let i = 1; i <= 3; i++) {
+        const team = teams[i - 1];
+        if (team) {
+          document.getElementById(`name-${i}`).textContent = team.name;
+          document.getElementById(`score-${i}`).textContent = `${getTotalScore(team)} pts`;
+        }
+      }
+
+      const lastTeam = teams[3];
+      if (lastTeam) {
+        document.getElementById('name-4').textContent = lastTeam.name;
+        document.getElementById('score-4').textContent = `${getTotalScore(lastTeam)} pts`;
+      }
+
+      leaderboardBody.innerHTML = '';
+      teams.forEach((team, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td class="rank">${index + 1}${index === 3 ? '🫏' : ''}</td>
+          <td><span class="team-tag ${team.tagClass}">${team.name}</span></td>
+          <td class="score">${team.scores.flechettes}</td>
+          <td class="score">${team.scores.cornhole}</td>
+          <td class="score">${team.scores.palet}</td>
+          <td class="score">${team.scores.pingpong}</td>
+          <td class="score total">${getTotalScore(team)}</td>
+        `;
+        leaderboardBody.appendChild(row);
       });
+
+      const currentSelected = teamSelect.value;
+      teamSelect.innerHTML = '';
+      teams.forEach(team => {
+        const option = document.createElement('option');
+        option.value = team.id;
+        option.textContent = team.name;
+        teamSelect.appendChild(option);
+      });
+      if (currentSelected) teamSelect.value = currentSelected;
     }
 
-    function ajouterPoints() {
-      const equipe = document.getElementById("equipe").value;
-      const pts = parseInt(document.getElementById("points").value, 10) || 0;
-      scores[equipe] += pts;
-      updateTable();
+    btnToggleAdmin.addEventListener('click', () => {
+      if (!isAdmin) {
+        const pwd = prompt("Entrez le mot de passe organisateur :");
+        if (pwd === ADMIN_PASSWORD) {
+          isAdmin = true;
+          adminPanel.classList.remove('locked-panel');
+          btnToggleAdmin.textContent = "🔓 Verrouiller";
+          btnToggleAdmin.style.background = "#22c55e";
+          btnToggleAdmin.style.color = "white";
+        } else if (pwd !== null) {
+          alert("Mot de passe incorrect !");
+        }
+      } else {
+        isAdmin = false;
+        adminPanel.classList.add('locked-panel');
+        btnToggleAdmin.textContent = "🔒 Déverrouiller";
+        btnToggleAdmin.style.background = "#e2e8f0";
+        btnToggleAdmin.style.color = "#334155";
+      }
+    });
+
+    function modifyScore(isAdding) {
+      if (!isAdmin) return;
+      const teamId = teamSelect.value;
+      const epreuve = epreuveSelect.value;
+      const points = parseInt(pointsInput.value, 10);
+
+      if (!isNaN(points) && points > 0) {
+        const team = teams.find(t => t.id === teamId);
+        if (team) {
+          team.scores[epreuve] += isAdding ? points : -points;
+          if (team.scores[epreuve] < 0) team.scores[epreuve] = 0;
+          pointsInput.value = '';
+          updateDisplay();
+        }
+      }
     }
 
-    updateTable();
+    document.getElementById('btn-add').addEventListener('click', () => modifyScore(true));
+    document.getElementById('btn-remove').addEventListener('click', () => modifyScore(false));
+
+    updateDisplay();
   </script>
 </body>
 </html>
