@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tournoi des 4 Équipes - Suivi & Score</title>
+  <title>Tournoi des 4 Équipes — Suivi & Score</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
@@ -13,201 +13,57 @@
       --card-bg: #ffffff;
       --text-main: #1e293b;
       --border-color: #2b2b2b;
-      
       --vodka-blue: #2563eb;
       --ginto-green: #16a34a;
       --teq-orange: #ea580c;
       --punch-red: #dc2626;
-      
       --gold: #f59e0b;
       --silver: #94a3b8;
       --bronze: #d97706;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg-cream); color: var(--text-main); font-family: 'Quicksand', sans-serif; padding: 20px 12px; max-width: 950px; margin: 0 auto; }
+    h1, h2, .podium-name, button, th, .donkey-title { font-family: 'Fredoka', sans-serif; }
+    header { text-align: center; margin-bottom: 24px; border-bottom: 3px dashed var(--border-color); padding-bottom: 16px; }
+    h1 { font-size: 2rem; text-transform: uppercase; color: #1e3a8a; letter-spacing: 1px; }
+    .subtitle { display: inline-block; background: var(--teq-orange); color: white; font-weight: bold; padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; margin-top: 6px; }
     
-    body { 
-      background-color: var(--bg-cream); 
-      color: var(--text-main); 
-      font-family: 'Quicksand', sans-serif; 
-      padding: 20px 12px; 
-      max-width: 950px; 
-      margin: 0 auto; 
-    }
-
-    h1, h2, .podium-name, button, th, .donkey-title { 
-      font-family: 'Fredoka', sans-serif; 
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 24px;
-      border-bottom: 3px dashed var(--border-color);
-      padding-bottom: 16px;
-    }
-
-    h1 {
-      font-size: 2rem;
-      text-transform: uppercase;
-      color: #1e3a8a;
-      letter-spacing: 1px;
-    }
-
-    .subtitle {
-      display: inline-block;
-      background: var(--teq-orange);
-      color: white;
-      font-weight: bold;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      margin-top: 6px;
-      font-family: 'Fredoka', sans-serif;
-    }
-
-    /* Podium & Bonnet d'âne */
-    .podium-wrapper {
-      display: flex;
-      align-items: flex-end;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .podium-container {
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      gap: 8px;
-      height: 190px;
-      flex: 1;
-    }
-
-    .podium-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      width: 32%;
-      border-radius: 12px 12px 0 0;
-      color: white;
-      font-weight: bold;
-      transition: all 0.4s ease;
-      padding-bottom: 10px;
-      border: 2px solid var(--border-color);
-      box-shadow: 3px 3px 0px var(--border-color);
-    }
-
+    .podium-wrapper { display: flex; align-items: flex-end; gap: 12px; margin-bottom: 24px; }
+    .podium-container { display: flex; justify-content: center; align-items: flex-end; gap: 8px; height: 190px; flex: 1; }
+    .podium-step { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 32%; border-radius: 12px 12px 0 0; color: white; font-weight: bold; padding-bottom: 10px; border: 2px solid var(--border-color); box-shadow: 3px 3px 0px var(--border-color); }
     .podium-step.first { height: 100%; background: var(--gold); order: 2; }
     .podium-step.second { height: 75%; background: var(--silver); order: 1; }
     .podium-step.third { height: 55%; background: var(--bronze); order: 3; }
-
     .podium-name { font-size: 1rem; text-align: center; line-height: 1.1; margin-bottom: 2px; }
     .podium-score { font-size: 0.85rem; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 10px; }
     .podium-rank { font-size: 1.5rem; opacity: 0.6; margin-bottom: 4px; }
 
-    .donkey-zone {
-      width: 130px;
-      background: #f1f5f9;
-      border: 2px dashed #94a3b8;
-      border-radius: 12px;
-      padding: 10px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 2px 2px 0px var(--border-color);
-    }
-
+    .donkey-zone { width: 130px; background: #f1f5f9; border: 2px dashed #94a3b8; border-radius: 12px; padding: 10px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 2px 2px 0px var(--border-color); }
     .donkey-hat { font-size: 2rem; line-height: 1; margin-bottom: 4px; }
-    .donkey-title { font-size: 0.75rem; color: #64748b; text-transform: uppercase; line-height: 1; margin-bottom: 6px; }
+    .donkey-title { font-size: 0.75rem; color: #64748b; text-transform: uppercase; margin-bottom: 6px; }
     .donkey-name { font-size: 0.95rem; font-weight: bold; font-family: 'Fredoka', sans-serif; }
     .donkey-score { font-size: 0.8rem; color: #475569; margin-top: 2px; }
 
-    @media (max-width: 600px) {
-      .podium-wrapper { flex-direction: column; align-items: stretch; }
-      .donkey-zone { width: 100%; }
-    }
+    @media (max-width: 600px) { .podium-wrapper { flex-direction: column; align-items: stretch; } .donkey-zone { width: 100%; } }
 
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1.3fr;
-      gap: 20px;
-    }
+    .main-grid { display: grid; grid-template-columns: 1.1fr 1.3fr; gap: 20px; }
+    @media (max-width: 720px) { .main-grid { grid-template-columns: 1fr; } }
 
-    @media (max-width: 720px) {
-      .main-grid { grid-template-columns: 1fr; }
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 18px;
-      border-radius: 16px;
-      border: 2px solid var(--border-color);
-      box-shadow: 4px 4px 0px var(--border-color);
-      margin-bottom: 20px;
-    }
-
-    .card h2 { 
-      font-size: 1.2rem; 
-      margin-bottom: 12px; 
-      color: var(--border-color);
-    }
+    .card { background: var(--card-bg); padding: 18px; border-radius: 16px; border: 2px solid var(--border-color); box-shadow: 4px 4px 0px var(--border-color); margin-bottom: 20px; }
+    .card h2 { font-size: 1.2rem; margin-bottom: 12px; color: var(--border-color); display: flex; justify-content: space-between; align-items: center; }
 
     .form-group { margin-bottom: 10px; }
     label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 4px; }
-    select, input {
-      width: 100%;
-      padding: 10px;
-      border: 2px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-family: 'Quicksand', sans-serif;
-      font-weight: 700;
-      background: #fafafa;
-    }
+    select, input { width: 100%; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; font-family: 'Quicksand', sans-serif; font-weight: 700; background: #fafafa; }
 
-    .btn-group {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    button {
-      flex: 1;
-      padding: 10px;
-      border: 2px solid var(--border-color);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 2px 2px 0px var(--border-color);
-      transition: transform 0.1s;
-    }
-
-    button:active {
-      transform: translate(2px, 2px);
-      box-shadow: 0px 0px 0px var(--border-color);
-    }
-
+    .btn-group { display: flex; gap: 8px; margin-top: 10px; }
+    button { flex: 1; padding: 10px; border: 2px solid var(--border-color); border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer; box-shadow: 2px 2px 0px var(--border-color); }
     .btn-add { background: #22c55e; color: white; }
     .btn-remove { background: #ef4444; color: white; }
+    .btn-lock { background: #e2e8f0; color: #334155; font-size: 0.8rem; padding: 4px 8px; width: auto; }
 
-    .epreuve-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-      border-bottom: 1px dashed #ccc;
-    }
-    .epreuve-item:last-child { border-bottom: none; }
-    .epreuve-time { 
-      font-family: 'Fredoka', sans-serif;
-      background: #e2e8f0; 
-      padding: 2px 6px; 
-      border-radius: 6px; 
-      font-size: 0.85rem; 
-    }
+    .epreuve-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #ccc; }
+    .epreuve-time { font-family: 'Fredoka', sans-serif; background: #e2e8f0; padding: 2px 6px; border-radius: 6px; font-size: 0.85rem; }
 
     table { width: 100%; border-collapse: collapse; }
     th, td { text-align: left; padding: 8px 4px; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
@@ -216,21 +72,13 @@
     td.total { font-size: 1.1rem; color: #1e3a8a; }
     td.rank { width: 25px; text-align: center; font-weight: bold; font-family: 'Fredoka', sans-serif; }
 
-    .team-tag {
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 6px;
-      color: white;
-      font-weight: bold;
-      font-size: 0.8rem;
-      border: 1px solid var(--border-color);
-    }
+    .team-tag { display: inline-block; padding: 2px 6px; border-radius: 6px; color: white; font-weight: bold; font-size: 0.8rem; border: 1px solid var(--border-color); }
     .tag-vodka { background: var(--vodka-blue); }
     .tag-ginto { background: var(--ginto-green); }
     .tag-teq { background: var(--teq-orange); }
     .tag-punch { background: var(--punch-red); }
 
-    .members-list { font-size: 0.7rem; color: #64748b; margin-top: 2px; line-height: 1.1; }
+    .locked-panel { opacity: 0.4; pointer-events: none; filter: grayscale(1); }
   </style>
 </head>
 <body>
@@ -240,7 +88,6 @@
     <div class="subtitle">ÉDITION SPÉCIALE - SUIVI EN DIRECT</div>
   </header>
 
-  <!-- Zone Podium + Bonnet d'âne -->
   <div class="podium-wrapper">
     <div class="podium-container">
       <div class="podium-step second">
@@ -270,57 +117,48 @@
 
   <div class="main-grid">
     <div>
-      <!-- Saisie des points par épreuve -->
       <div class="card">
-        <h2>⚡ Saisie / Correction des Points</h2>
-        <form id="score-form">
-          <div class="form-group">
-            <label for="team-select">Équipe</label>
-            <select id="team-select" required></select>
-          </div>
-          <div class="form-group">
-            <label for="epreuve-select">Épreuve</label>
-            <select id="epreuve-select" required>
-              <option value="flechettes">🎯 Fléchettes</option>
-              <option value="cornhole">🌾 Cornhole</option>
-              <option value="palet">🪵 Palet Breton</option>
-              <option value="pingpong">🏓 Ping-Pong</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="points-input">Points à ajouter/enlever</label>
-            <input type="number" id="points-input" min="1" required placeholder="Ex: 4">
-          </div>
-          <div class="btn-group">
-            <button type="button" class="btn-add" id="btn-add">+ Ajouter</button>
-            <button type="button" class="btn-remove" id="btn-remove">- Enlever</button>
-          </div>
-        </form>
+        <h2>
+          <span>⚡ Saisie des Points</span>
+          <button id="btn-toggle-admin" class="btn-lock">🔒 Déverrouiller</button>
+        </h2>
+        
+        <div id="admin-panel" class="locked-panel">
+          <form id="score-form">
+            <div class="form-group">
+              <label for="team-select">Équipe</label>
+              <select id="team-select"></select>
+            </div>
+            <div class="form-group">
+              <label for="epreuve-select">Épreuve</label>
+              <select id="epreuve-select">
+                <option value="flechettes">🎯 Fléchettes</option>
+                <option value="cornhole">🌾 Cornhole</option>
+                <option value="palet">🪵 Palet Breton</option>
+                <option value="pingpong">🏓 Ping-Pong</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="points-input">Points</label>
+              <input type="number" id="points-input" min="1" placeholder="Ex: 4">
+            </div>
+            <div class="btn-group">
+              <button type="button" class="btn-add" id="btn-add">+ Ajouter</button>
+              <button type="button" class="btn-remove" id="btn-remove">- Enlever</button>
+            </div>
+          </form>
+        </div>
       </div>
 
-      <!-- Programme -->
       <div class="card">
         <h2>📅 Planning des Épreuves</h2>
-        <div class="epreuve-item">
-          <span>🎯 1. Fléchette</span>
-          <span class="epreuve-time">16h00</span>
-        </div>
-        <div class="epreuve-item">
-          <span>🌾 2. Corn Hall</span>
-          <span class="epreuve-time">17h00</span>
-        </div>
-        <div class="epreuve-item">
-          <span>🪵 3. Palet Breton</span>
-          <span class="epreuve-time">18h00</span>
-        </div>
-        <div class="epreuve-item">
-          <span>🏓 4. Finale : Ping Pong</span>
-          <span class="epreuve-time">19h00</span>
-        </div>
+        <div class="epreuve-item"><span>🎯 1. Fléchette</span><span class="epreuve-time">16h00</span></div>
+        <div class="epreuve-item"><span>🌾 2. Corn Hall</span><span class="epreuve-time">17h00</span></div>
+        <div class="epreuve-item"><span>🪵 3. Palet Breton</span><span class="epreuve-time">18h00</span></div>
+        <div class="epreuve-item"><span>🏓 4. Finale : Ping Pong</span><span class="epreuve-time">19h00</span></div>
       </div>
     </div>
 
-    <!-- Tableau détaillé avec le total cumulé -->
     <div class="card">
       <h2>🏆 Classement Général (Détail)</h2>
       <table>
@@ -341,52 +179,29 @@
   </div>
 
   <script>
-    // Structure mise à jour avec les nouveaux noms d'équipes et le détail par épreuve
+    // MOT DE PASSE POUR S'AUTHENTIFIER EN TANT QU'ORGANISATEUR
+    const ADMIN_PASSWORD = "1234";
+    let isAdmin = false;
+
     let teams = [
-      {
-        id: "vodka",
-        name: "Vodka Get",
-        tagClass: "tag-vodka",
-        scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 },
-        members: ["Marie", "dodo", "Boulb", "Cecile GT", "Amélie", "fly", "Aurelie D", "Boris", "Ben du nord", "Grego", "Aurelie S", "Psylo", "Babuz", "Lorraine", "Cha"]
-      },
-      {
-        id: "ginto",
-        name: "Ginto",
-        tagClass: "tag-ginto",
-        scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 },
-        members: ["Vaness", "Tomo", "BenJ", "Elodie", "Stephen", "Gaetan", "Camille", "Nico Summa", "Damien", "Benoit", "Iliana", "Falass", "Helder", "Pauline", "Sandra"]
-      },
-      {
-        id: "teq",
-        name: "Teq'Paf",
-        tagClass: "tag-teq",
-        scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 },
-        members: ["Bastien", "Juliette", "Anais", "Samy", "Nico GT", "Aline GT", "Aimé", "Sara", "sonny", "Delphine", "Greg P", "Yann", "Bérangère", "Léa"]
-      },
-      {
-        id: "punch",
-        name: "Ti'Punch",
-        tagClass: "tag-punch",
-        scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 },
-        members: ["Shish", "Manon", "Pelik", "Vincent", "Astrid", "Guips", "Kevin", "Celinette", "Steevo", "Virginie", "Grand Ben", "Lu", "Nono", "Naoul", "BBR"]
-      }
+      { id: "vodka", name: "Vodka Get", tagClass: "tag-vodka", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } },
+      { id: "ginto", name: "Ginto", tagClass: "tag-ginto", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } },
+      { id: "teq", name: "Teq'Paf", tagClass: "tag-teq", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } },
+      { id: "punch", name: "Ti'Punch", tagClass: "tag-punch", scores: { flechettes: 0, cornhole: 0, palet: 0, pingpong: 0 } }
     ];
 
     const teamSelect = document.getElementById('team-select');
     const epreuveSelect = document.getElementById('epreuve-select');
     const leaderboardBody = document.getElementById('leaderboard-body');
     const pointsInput = document.getElementById('points-input');
+    const adminPanel = document.getElementById('admin-panel');
+    const btnToggleAdmin = document.getElementById('btn-toggle-admin');
 
-    function getTotalScore(team) {
-      return Object.values(team.scores).reduce((a, b) => a + b, 0);
-    }
+    function getTotalScore(team) { return Object.values(team.scores).reduce((a, b) => a + b, 0); }
 
     function updateDisplay() {
-      // Tri par score total
       teams.sort((a, b) => getTotalScore(b) - getTotalScore(a));
 
-      // Mise à jour du Podium (Top 3)
       for (let i = 1; i <= 3; i++) {
         const team = teams[i - 1];
         if (team) {
@@ -395,24 +210,18 @@
         }
       }
 
-      // Mise à jour du 4ᵉ (Bonnet d'âne)
       const lastTeam = teams[3];
       if (lastTeam) {
         document.getElementById('name-4').textContent = lastTeam.name;
         document.getElementById('score-4').textContent = `${getTotalScore(lastTeam)} pts`;
       }
 
-      // Mise à jour du tableau complet
       leaderboardBody.innerHTML = '';
       teams.forEach((team, index) => {
         const row = document.createElement('tr');
-        const isLast = index === 3;
         row.innerHTML = `
-          <td class="rank">${index + 1}${isLast ? '🫏' : ''}</td>
-          <td>
-            <span class="team-tag ${team.tagClass}">${team.name}</span>
-            <div class="members-list">${team.members.slice(0, 4).join(', ')}...</div>
-          </td>
+          <td class="rank">${index + 1}${index === 3 ? '🫏' : ''}</td>
+          <td><span class="team-tag ${team.tagClass}">${team.name}</span></td>
           <td class="score">${team.scores.flechettes}</td>
           <td class="score">${team.scores.cornhole}</td>
           <td class="score">${team.scores.palet}</td>
@@ -422,7 +231,6 @@
         leaderboardBody.appendChild(row);
       });
 
-      // Synchronisation du select
       const currentSelected = teamSelect.value;
       teamSelect.innerHTML = '';
       teams.forEach(team => {
@@ -434,7 +242,29 @@
       if (currentSelected) teamSelect.value = currentSelected;
     }
 
+    btnToggleAdmin.addEventListener('click', () => {
+      if (!isAdmin) {
+        const pwd = prompt("Entrez le mot de passe organisateur :");
+        if (pwd === ADMIN_PASSWORD) {
+          isAdmin = true;
+          adminPanel.classList.remove('locked-panel');
+          btnToggleAdmin.textContent = "🔓 Verrouiller";
+          btnToggleAdmin.style.background = "#22c55e";
+          btnToggleAdmin.style.color = "white";
+        } else if (pwd !== null) {
+          alert("Mot de passe incorrect !");
+        }
+      } else {
+        isAdmin = false;
+        adminPanel.classList.add('locked-panel');
+        btnToggleAdmin.textContent = "🔒 Déverrouiller";
+        btnToggleAdmin.style.background = "#e2e8f0";
+        btnToggleAdmin.style.color = "#334155";
+      }
+    });
+
     function modifyScore(isAdding) {
+      if (!isAdmin) return;
       const teamId = teamSelect.value;
       const epreuve = epreuveSelect.value;
       const points = parseInt(pointsInput.value, 10);
@@ -443,7 +273,7 @@
         const team = teams.find(t => t.id === teamId);
         if (team) {
           team.scores[epreuve] += isAdding ? points : -points;
-          if (team.scores[epreuve] < 0) team.scores[epreuve] = 0; // empêche les scores négatifs par sécurité
+          if (team.scores[epreuve] < 0) team.scores[epreuve] = 0;
           pointsInput.value = '';
           updateDisplay();
         }
